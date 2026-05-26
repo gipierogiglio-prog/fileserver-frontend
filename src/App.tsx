@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import './App.css'
 
 const API = import.meta.env.VITE_API_URL || ''
 
