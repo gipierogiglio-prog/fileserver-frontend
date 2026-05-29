@@ -1,0 +1,16 @@
+name: devgiglio-fileserver-frontend
+
+services:
+  fileserver-frontend:
+    image: ghcr.io/gipierogiglio-prog/fileserver-frontend:latest
+    container_name: devgiglio-fileserver-frontend
+    restart: always
+    ports:
+      - "3006:80"
+    networks:
+      - devgiglio-network
+
+
+networks:
+  devgiglio-network:
+    external: true
