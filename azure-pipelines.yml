@@ -9,8 +9,7 @@ variables:
   - name: APP_NAME
     value: fileserver-frontend
 
-pool:
-  vmImage: ubuntu-latest
+pool: devgiglio
 
 steps:
   - bash: |
@@ -19,12 +18,8 @@ steps:
       docker push ghcr.io/gipierogiglio-prog/fileserver-frontend:latest
     displayName: "Build, Login & Push"
 
-  - task: SSH@0
-    displayName: "Deploy via SSH"
-    inputs:
-      sshEndpoint: devgiglio-vps-ssh
-      runOptions: commands
-      commands: |
-        cd /opt/devgiglio
-        docker pull ghcr.io/gipierogiglio-prog/fileserver-frontend:latest
-        docker compose up -d --force-recreate fileserver-frontend
+  - bash: |
+      cd /opt/devgiglio
+      docker pull ghcr.io/gipierogiglio-prog/fileserver-frontend:latest
+      docker compose up -d --force-recreate fileserver-frontend
+    displayName: "Deploy via Docker Compose"
