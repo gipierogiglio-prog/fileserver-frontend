@@ -9,7 +9,7 @@ variables:
   - name: APP_NAME
     value: fileserver-frontend
   - name: STACK
-    value: 
+    value: nginx-static
   - name: DEPLOY_ENABLED
     value: "true"
   - name: TEST_ENABLED
@@ -28,12 +28,12 @@ resources:
 pool: Default
 
 stages:
-  - template: stages/build/${stack}-build.yml@templates
+  - template: stages/build/nginx-static-build.yml@templates
     parameters:
       appName: $(APP_NAME)
 
   - ${{ if eq(variables.TEST_ENABLED, 'true') }}:
-    - template: stages/test/${stack}-test.yml@templates
+    - template: stages/test/nginx-static-test.yml@templates
       parameters:
         appName: $(APP_NAME)
 
